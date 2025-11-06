@@ -1,0 +1,80 @@
+form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+input[type="text"] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  width: 250px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #7b61ff;
+}
+
+button[type="submit"] {
+  background-color: #7b61ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #6a4efc;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+li {
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  color: green;
+  margin: 8px 0;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+li:hover {
+  background: #242424;
+}
+
+li button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+li button:hover {
+  background: #d93636;
+}
+
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  color: #333;
+  font-family: 'Poppins', sans-serif;
+}
