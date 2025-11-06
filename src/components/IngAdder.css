@@ -78,3 +78,27 @@ h1 {
   color: #333;
   font-family: 'Poppins', sans-serif;
 }
+
+.recipe-info {
+  background: #fafafa;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.recipe-info h4 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.recipe-info p {
+  color: #555;
+}
