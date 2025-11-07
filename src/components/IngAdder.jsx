@@ -1,17 +1,21 @@
 import { useState } from "react";
 import './IngAdder.css';
+import RoboRecipe from "./roboRecipe";
+import RecipeShow from "./RecipeShow";
 
 
-export default function IngAdder(){
-    const [IngredientList, setIngredientList] = useState([]);
+export default function IngAdder(props){
+    const [IngredientList, setIngredientList] = useState(['1', '2', '3']);
     const [showRecipe, setShowRecipe] = useState(false);
 
     function addIng(e){
         e.preventDefault();
 
         const curIng = new FormData(e.currentTarget);
-        setIngredientList((item)=>[...item, curIng.get('ing')]);
-        e.currentTarget.reset();
+        if(curIng.get('ing').trim() !== ''){
+            setIngredientList((item)=>[...item, curIng.get('ing')]);
+            e.currentTarget.reset();
+        }
     }
 
     function removeIng(index){
@@ -23,34 +27,21 @@ export default function IngAdder(){
         return <li key={index}>{item} <button onClick={() => removeIng(index)}>X</button></li>
     })
 
-    function genRecipe(){
+    function toggleRecipe(){
         setShowRecipe((prev)=>prev=!prev);
     }
 
     return(
         <>
-        <form onSubmit={addIng}>
-            <input type="text" name="ing" placeholder="eg Tomato sauce" />
-            <button type="submit">ADD Ingredient</button>
-        </form>
-        <ul>
-            {newList}
-        </ul>
-        {IngredientList.length > 3 &&
-            <section>
-                <h3>Ready to create a recipe?</h3>
-                <button onClick={genRecipe}>{showRecipe? "Hide" : "Generate" } Recipe</button>
-            </section>
-        }
-        {showRecipe && 
-            <div className="recipe-info">
-                <h4>
-                    Recipe info
-                </h4>
-                <p>jajaja</p>
-            </div>
-        }
-        
+            <form onSubmit={addIng}>
+                <input type="text" name="ing" placeholder="eg Tomato sauce" />
+                <button type="submit">ADD Ingredient</button>
+            </form>
+            <ul>
+                {newList}
+            </ul>
+            {IngredientList.length > 3 && <RecipeShow enough={showRecipe} show={toggleRecipe} />}
+            {showRecipe && <RoboRecipe/> }
         </>
     )
 
