@@ -1,11 +1,12 @@
-export default function RoboRecipe(){
+import ReactMarkdown from "react-markdown";
+
+export default function RoboRecipe(props){
     return(
         <>
             <div className="recipe-info">
-                <h4>
-                    Recipe info
-                </h4>
-                <p>jajaja</p>
+                <ReactMarkdown>
+                    {props.genRecipe}
+                </ReactMarkdown>
             </div>
         </>
     )

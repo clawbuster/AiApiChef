@@ -6,8 +6,9 @@ import { getRecipeFromClaudeFree, getRecipeFromMistral } from "../aiChef";
 
 
 export default function IngAdder(props){
-    const [IngredientList, setIngredientList] = useState(['tomato sauce', 'garlic', 'rice', 'onion']);
+    const [IngredientList, setIngredientList] = useState([]);
     const [showRecipe, setShowRecipe] = useState(false);
+    const [Recipe, setRecipe] = useState('');
 
     function addIng(e){
         e.preventDefault();
@@ -28,25 +29,29 @@ export default function IngAdder(props){
         return <li key={index}>{item} <button onClick={() => removeIng(index)}>X</button></li>
     })
 
-    async function toggleRecipe(){
+    async function generateRecipe(){
         // setShowRecipe((prev)=>prev=!prev);
         const genRecipe = await getRecipeFromClaudeFree(IngredientList);
         //console.log("HF API Key:", import.meta.env.VITE_HF_API_KEY)
 
-        console.log(genRecipe);
+        setRecipe(genRecipe);
+    }
+
+    function toggleRecipe(){
+        setShowRecipe((prev)=>prev=!prev);
     }
 
     return(
         <>
             <form onSubmit={addIng}>
-                <input type="text" name="ing" placeholder="eg Tomato sauce" />
+                <input type="text" name="ing" placeholder="eg Tomato sauce"/>
                 <button type="submit">ADD Ingredient</button>
             </form>
             <ul>
                 {newList}
             </ul>
-            {IngredientList.length > 3 && <RecipeShow enough={showRecipe} show={toggleRecipe} />}
-            {showRecipe && <RoboRecipe/> }
+            {IngredientList.length > 3 && <RecipeShow enough={IngredientList.length} show={toggleRecipe} gen={generateRecipe} status={showRecipe} />}
+            {showRecipe && <RoboRecipe genRecipe={Recipe}/> }
         </>
     )
 
