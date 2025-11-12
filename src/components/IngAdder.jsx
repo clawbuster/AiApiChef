@@ -2,10 +2,11 @@ import { useState } from "react";
 import './IngAdder.css';
 import RoboRecipe from "./roboRecipe";
 import RecipeShow from "./RecipeShow";
+import { getRecipeFromClaudeFree, getRecipeFromMistral } from "../aiChef";
 
 
 export default function IngAdder(props){
-    const [IngredientList, setIngredientList] = useState(['1', '2', '3']);
+    const [IngredientList, setIngredientList] = useState(['tomato sauce', 'garlic', 'rice', 'onion']);
     const [showRecipe, setShowRecipe] = useState(false);
 
     function addIng(e){
@@ -27,8 +28,12 @@ export default function IngAdder(props){
         return <li key={index}>{item} <button onClick={() => removeIng(index)}>X</button></li>
     })
 
-    function toggleRecipe(){
-        setShowRecipe((prev)=>prev=!prev);
+    async function toggleRecipe(){
+        // setShowRecipe((prev)=>prev=!prev);
+        const genRecipe = await getRecipeFromClaudeFree(IngredientList);
+        //console.log("HF API Key:", import.meta.env.VITE_HF_API_KEY)
+
+        console.log(genRecipe);
     }
 
     return(
