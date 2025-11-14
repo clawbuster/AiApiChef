@@ -102,3 +102,8 @@ h1 {
 .recipe-info p {
   color: #555;
 }
+
+html, body {
+    height: auto !important;
+    overflow-y: auto !important;
+}

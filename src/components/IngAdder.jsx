@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import './IngAdder.css';
 import RoboRecipe from "./roboRecipe";
 import RecipeShow from "./RecipeShow";
 import { getRecipeFromClaudeFree, getRecipeFromMistral } from "../aiChef";
 
 
-export default function IngAdder(props){
+export default function IngAdder(){
     const [IngredientList, setIngredientList] = useState([]);
     const [showRecipe, setShowRecipe] = useState(false);
     const [Recipe, setRecipe] = useState('');
+    const recipeRef = useRef(null);
+
+    useEffect(()=>{
+        if(Recipe!=="" && recipeRef.current !== null){
+            recipeRef.current.scrollIntoView({behavior: "smooth"});
+        }
+    }, [Recipe])
 
     function addIng(e){
         e.preventDefault();
@@ -33,8 +40,8 @@ export default function IngAdder(props){
         // setShowRecipe((prev)=>prev=!prev);
         const genRecipe = await getRecipeFromClaudeFree(IngredientList);
         //console.log("HF API Key:", import.meta.env.VITE_HF_API_KEY)
-
         setRecipe(genRecipe);
+        setShowRecipe(true);
     }
 
     function toggleRecipe(){
@@ -51,7 +58,7 @@ export default function IngAdder(props){
                 {newList}
             </ul>
             {IngredientList.length > 3 && <RecipeShow enough={IngredientList.length} show={toggleRecipe} gen={generateRecipe} status={showRecipe} />}
-            {showRecipe && <RoboRecipe genRecipe={Recipe}/> }
+            {showRecipe && <RoboRecipe ref={recipeRef} genRecipe={Recipe}/> }
         </>
     )
 
